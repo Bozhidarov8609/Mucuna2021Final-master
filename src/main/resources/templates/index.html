@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<body>
+
+<header th:replace="/fragments/fragment :: navigation"></header>
+<!-- END nav -->
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+             data-scrollax-parent="true">
+            <div class="col-md-11 ftco-animate text-center">
+                <h1 class="mb-4">Welcome To MUCUNA </h1>
+                <h1 style="font-size:1.8vw;">It's Nice To Meet You
+                </h1>
+
+                <p>
+                    <a href="/users/register" class="btn btn-primary mr-md-4 py-3 px-4">Register <span
+                        class="ion-ios-arrow-forward"></span></a>
+                    <a href="/users/login" class="btn btn-primary mr-md-4 py-3 px-4">Login <span
+                            class="ion-ios-arrow-forward"></span></a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="ftco-counter" id="section-counter">
+    <div class="container">
+        <div class="row"  >
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" th:data-number="${userCount}">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Customer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" th:data-number="${dogCount}">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Dogs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" th:data-number="${puppyCount}">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Puppies</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" th:data-number="${vetCount}">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Vets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+<div th:replace="/fragments/fragment :: script" ></div>
+
+</body>
+</html>

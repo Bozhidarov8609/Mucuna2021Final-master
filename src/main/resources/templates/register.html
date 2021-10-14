@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<body>
+<header th:replace="/fragments/fragment :: navigation"></header>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+
+                    <div class="row no-gutters">
+                        <div class="col-md-7">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Register</h3>
+                                <form th:method="POST" th:action="@{/users/register}" id="contactForm" name="contactForm" class="contactForm" th:object="${userRegisterBindingModel}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="username">Username</label>
+                                                <input th:field="*{username}" th:classappend="${#fields.hasErrors('username')}? 'is-invalid'" type="text" class="form-control" name="username" id="username" placeholder="username..."
+                                                th:value="*{username}">
+                                                <small th:if="${#fields.hasErrors('username')}" class="text-danger"
+                                                       th:errors="*{username}"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Email Address</label>
+                                                <input th:field="*{email}" th:classappend="${#fields.hasErrors('email')}? 'is-invalid'" type="email" class="form-control" name="email" id="email" placeholder="email...">
+                                                <small th:if="${#fields.hasErrors('email')}" class="text-danger"
+                                                       th:errors="*{email}"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="town">Town</label>
+                                                <input th:field="*{town}" th:classappend="${#fields.hasErrors('town')}? 'is-invalid'" type="text" class="form-control" name="town" id="town" placeholder="town...">
+                                                <small th:if="${#fields.hasErrors('town')}" class="text-danger"
+                                                       th:errors="*{town}"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="password">Password</label>
+                                                <input th:field="*{password}" th:classappend="${#fields.hasErrors('password')}? 'is-invalid'" type="password" class="form-control" name="password" id="password" placeholder="password...">
+                                                <small th:if="${#fields.hasErrors('password')}" class="text-danger"
+                                                       th:errors="*{password}"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="confirmPassword">Confirm Password</label>
+                                                <input th:field="*{confirmPassword}" th:classappend="${notSame}? 'is-invalid'" type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password...">
+                                                <small th:if="${notSame}" class="text-danger">Passwords is not same</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="submit" value="submit" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap w-100 p-5 img" style="background-image: url('images/img.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer th:replace="fragments/fragment :: footer"></footer>
+<div th:replace="/fragments/fragment :: script" ></div>
+</body>
+</html>

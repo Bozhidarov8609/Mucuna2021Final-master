@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<body>
+<header th:replace="/fragments/fragment :: navigation"></header>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+
+                    <div class="row no-gutters">
+                        <div class="col-md-7">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Register</h3>
+                                <form th:method="POST" th:action="@{/vets/update}" id="contactForm" name="contactForm" class="contactForm" th:object="${updateVetBindingModel}"  enctype="multipart/form-data">
+                                    <div class="section-title">
+                                        <h4>Upload Profile Picture</h4>
+                                    </div>
+
+                                    <div class="form-row" enctype="multipart/form-data">
+                                        <div class=" offset-md form-group">
+                                            <input type="file" th:field="*{image}"  id="image" name="image">
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="service">Service</label>
+                                                <input th:field="*{service}" th:classappend="${#fields.hasErrors('service')}? 'is-invalid'" type="text" class="form-control" name="service" id="service" placeholder="service..."
+                                                       th:value="*{service}">
+                                                <small th:if="${#fields.hasErrors('service')}" class="text-danger"
+                                                       th:errors="*{service}"></small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="address">Address</label>
+                                                <input th:field="*{address}" th:classappend="${#fields.hasErrors('address')}? 'is-invalid'" type="text" class="form-control" name="address" id="address" placeholder="address...">
+                                                <small th:if="${#fields.hasErrors('address')}" class="text-danger"
+                                                       th:errors="*{address}"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="phoneNumber">Phone Number</label>
+                                                <input th:field="*{phoneNumber}" th:classappend="${#fields.hasErrors('phoneNumber')}? 'is-invalid'" type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number...">
+                                                <small th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger"
+                                                       th:errors="*{phoneNumber}"></small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="submit" value="submit" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap w-100 p-5 img" style="background-image: url('images/img.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+<div th:replace="/fragments/fragment :: script" ></div>
+</body>
+</html>

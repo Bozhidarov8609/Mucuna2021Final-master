@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <title>Mucuna</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/doggy.ico}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/css/animate.css">
+
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+
+
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header th:fragment="navigation">
+    <div class="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center">
+                    <p class="mb-0 phone pl-md-2">
+                        <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 123 456 789</a>
+                        <a href="#"><span class="fa fa-paper-plane mr-1"></span> mucunateam@gmail.com</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/home"><span class="flaticon-pawprint-1 mr-2"></span>Mucuna</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                    aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li  class="nav-item"><a  sec:authorize="!isAuthenticated()"
+                                              th:href="@{/users/login}" class="nav-link">Login</a></li>
+                    <li  class="nav-item"><a  sec:authorize="!isAuthenticated()"
+                                              th:href="@{/users/register}" class="nav-link">Register</a></li>
+
+
+                    <th:block sec:authorize="isAuthenticated()">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Dogs
+                                </a>
+                                <div class="dropdown-menu m-0" aria-labelledby="navbarDropdown">
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/dogs/isApproved}">Not Approved Dogs</a>
+                                    <a class="dropdown-item" th:href="@{/dogs/add}">Add Dog</a>
+                                    <a class="dropdown-item" th:href="@{/dogs/byBreed}">Find dog by Breed</a>
+                                   <div class="dropdown-divider"></div>
+                                </div>
+                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Dog Events
+                            </a>
+                            <div class="dropdown-menu m-0" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" th:href="@{/events/add}">Add New Event</a>
+                                <a class="dropdown-item" th:href="@{/events/all}">Show Events</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Puppies
+                            </a>
+                            <div class="dropdown-menu m-0" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" th:href="@{/puppies/add}">Add Puppy</a>
+                                <a class="dropdown-item" th:href="@{/puppies/all}">All Puppies</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/vets/all}">Veterinarian</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/products/all}">For Dogs</a></li>
+                        <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu m-0" aria-labelledby="navbarDropdown">
+                                <a  class="dropdown-item" th:href="@{/users/updateRole}">Update Role</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CLIENT')">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu m-0" aria-labelledby="navbarDropdown">
+                                <a  class="dropdown-item" th:href="@{/products/add}">Add Product</a>
+                                <a class="dropdown-item" th:href="@{/vets/update}">Update Profile</a>
+                                <a class="dropdown-item" th:href="@{/products/myProducts}">My Products</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+
+
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                        <li class="nav-item"><a class="nav-link" th:href="@{/users/client}">Register your
+                            business</a></li>
+                    </th:block>
+
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li class="nav-item"><a class="nav-link">
+                            <form th:action="@{/users/logout}" method="POST">
+                                <button type="submit" class="btn btn-primary">Logout</button>
+                            </form>
+                        </a></li>
+                    </th:block>
+
+                </ul>
+
+            </div>
+        </div>
+
+    </nav>
+
+</header>
+<footer th:fragment="footer" class="footer">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-5 text-center">
+                <p class="copyright">
+                    Mucuna&copy;
+                    All rights reserved
+                </p>
+                <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 123 456 789</a>
+                <a href="#"><span class="fa fa-paper-plane mr-1"></span> mucunateam@gmail.com</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div th:fragment="script">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/jquery.stellar.min.js"></script>
+    <script src="/js/jquery.animateNumber.min.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script src="/js/jquery.timepicker.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="/js/google-map.js"></script>
+    <script src="/js/main.js"></script>
+
+</div>
+
+</body>
+</html>

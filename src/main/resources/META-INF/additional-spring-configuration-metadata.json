@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.mvc.hiddenmethod.filter.enabled",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.mvc.hiddenmethod.filter.enabled."
+    },
+    {
+      "name": "spring.mvc.hiddenmethod.init",
+      "type": "java.lang.String",
+      "description": "Description for spring.mvc.hiddenmethod.init."
+    },
+
+    {
+      "name": "spring.jpa.defer-datasource-initialization",
+      "type": "java.lang.String",
+      "description": "Description for spring.jpa.defer-datasource-initialization."
+    }
+  ] }

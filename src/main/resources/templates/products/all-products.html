@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<header th:replace="/fragments/fragment :: navigation"></header>
+<body>
+
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+               <h1 class="mb-0 bread">
+                    Surprise your dog for no reason </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+
+            </div>
+        </div>
+        <div class="row">
+            <div  th:each="p : ${allProducts}"  th:object="${p}" class="col-md-4 ftco-animate">
+                <div class="block-7">
+                    <div class="img" th:style="'background-image:url(' + *{picture} + '); background-repeat: no-repeat, repeat; background-size: cover;'"></div>
+                    <div class="text-center p-4">
+                        <span th:text="'Name: '+ *{name}" class="excerpt d-block"></span>
+                        <span  class="price"><sup>$</sup> <span th:text="*{price}" class="number"></span> <sub></sub></span>
+
+                        <ul class="pricing-text mb-5">
+                            <li><span th:text=" *{description}" class="fa fa-check mr-2"></span></li>
+
+                        </ul>
+
+                        <a th:href="@{/products/buy/{id}(id= *{id})}" class="btn btn-primary d-block px-2 py-3">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+ <div th:replace="/fragments/fragment :: script" ></div>
+</body>
+
+
+</html>

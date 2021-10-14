@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<body>
+<header th:replace="/fragments/fragment :: navigation"></header>
+
+
+<div class="container" >
+
+            <h1 style="font-size:1.8vw;">Choose to register your business
+            </h1>
+            <p>
+                <a th:href="@{/dealers/register}" class="btn btn-primary mr-md-4 py-3 px-4">Seller <span
+                        class="ion-ios-arrow-forward"></span></a>
+                <a th:href="@{/vets/register}" class="btn btn-primary mr-md-4 py-3 px-4">Vet <span
+                        class="ion-ios-arrow-forward"></span></a>
+            </p>
+
+
+</div>
+<section class="ftco-counter" id="section-counter">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" data-number="50">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Customer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" data-number="8500">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Professionals</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" data-number="100000">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Products</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18 text-center">
+                    <div class="text">
+                        <strong class="number" data-number="50">0</strong>
+                    </div>
+                    <div class="text">
+                        <span>Pets Hosted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer th:replace="fragments/fragment :: footer"></footer>
+<div th:replace="/fragments/fragment :: script" ></div>
+</body>
+</html>

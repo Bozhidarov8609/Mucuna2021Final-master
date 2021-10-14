@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<body>
+<header th:replace="/fragments/fragment :: navigation"></header>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-4 d-flex ftco-animate"  th:object="${dog}">
+                <div class="blog-entry align-self-stretch">
+                    <a  class="block-20 rounded" th:style="'background-image:url(' + *{picture} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+                    </a>
+                    <div class="text p-4">
+
+                        <h3 class="heading" th:text="'Name: ' + ${dog.name}"><a ></a></h3>
+                        <h3 class="heading" th:text="'Age: ' + ${dog.age}"><a ></a></h3>
+                        <h3 class="heading" th:text="'Sex: ' + ${dog.sex}"><a ></a></h3>
+                        <h3 class="heading" th:text="'Breed: ' + ${dog.breed}"><a ></a></h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.timepicker.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="/js/google-map.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

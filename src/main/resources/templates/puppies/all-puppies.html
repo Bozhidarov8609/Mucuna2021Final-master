@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<header th:replace="/fragments/fragment :: navigation"></header>
+<body>
+
+
+ <section class="ftco-section">
+   <div class="container">
+       <div class="row">
+           <div th:each="p : ${allPuppies}"  th:object="${p}" class="col-md-4 ftco-animate">
+               <div  class="work mb-4 img d-flex align-items-end" th:style="'background-image:url(' + *{picture} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+                   <a th:href="*{picture}"
+                      class="icon image-popup d-flex justify-content-center align-items-center">
+                       <span class="fa fa-expand"></span>
+                   </a>
+                   <div class="desc w-100 px-4">
+                       <div class="text w-100 mb-3">
+                           <span>Name</span>
+                           <h2><a th:text="*{name}"  href="work-single.html"></a></h2>
+                       </div>
+                   </div>
+
+               </div>
+               <a th:href="@{/puppies/details/(id=*{id})}"
+                  class="btn btn-primary d-block px-2 py-3">More</a>
+           </div>
+       </div>
+   </div>
+</section>
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+ <div th:replace="/fragments/fragment :: script" ></div>
+</body>
+
+
+</html>
