@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class EditPuppyBindingModel {
 
-
+private Long id;
     private String description;
     private BigDecimal price;
     private String contact;
@@ -40,6 +40,15 @@ public class EditPuppyBindingModel {
 
     public EditPuppyBindingModel setContact(String contact) {
         this.contact = contact;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public EditPuppyBindingModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }

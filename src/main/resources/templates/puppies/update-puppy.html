@@ -19,98 +19,68 @@
                                 <h3 class="mb-4">Register</h3>
                                 <form
                                         th:object="${newPuppy}"
-                                        th:method="POST"
-                                        th:action="@{/puppies/add}" id="contactForm" name="contactForm" class="contactForm"   enctype="multipart/form-data">
-                                    <div class="section-title">
-                                        <h4>Upload Profile Picture</h4>
-                                    </div>
-
-                                    <div class="form-row" enctype="multipart/form-data">
-                                        <div class=" offset-md form-group">
-                                            <input type="file" th:field="*{image}"  id="image" name="image">
-
-                                        </div>
-
-                                    </div>
+                                        th:method="PATCH"
+                                        th:action="@{/puppies/edit/{id}(id=*{id})}" id="contactForm" name="contactForm"
+                                        class="contactForm" enctype="multipart/form-data">
 
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label" for="name">Name</label>
-                                                <input th:field="*{name}" th:classappend="${#fields.hasErrors('name')}? 'is-invalid'" type="text" class="form-control" name="name" id="name" placeholder="name..."
-                                                       th:value="*{name}">
-                                                <small th:if="${#fields.hasErrors('name')}" class="text-danger"
-                                                       th:errors="*{name}"></small>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label" for="description">Description</label>
-                                                <input th:field="*{description}" th:classappend="${#fields.hasErrors('description')}? 'is-invalid'" type="text" class="form-control" name="price" id="description" placeholder="description...">
-                                                <small th:if="${#fields.hasErrors('description')}" class="text-danger"
-                                                       th:errors="*{description}"></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label" for="price">Price</label>
-                                                <input th:field="*{price}" th:classappend="${#fields.hasErrors('price')}? 'is-invalid'" type="text" class="form-control" name="price" id="price" placeholder="price...">
-                                                <small th:if="${#fields.hasErrors('price')}" class="text-danger"
-                                                       th:errors="*{price}"></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label" for="contact">Contact</label>
-                                                <input th:field="*{contact}" th:classappend="${#fields.hasErrors('contact')}? 'is-invalid'" type="text" class="form-control" name="contact" id="contact" placeholder="contact...">
-                                                <small th:if="${#fields.hasErrors('contact')}" class="text-danger"
-                                                       th:errors="*{contact}"></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label" for="contact">parent</label>
-                                                <select id="dog" name="dog" class="form-control">
-                                                    <option value="">- Select a parent -</option>
-                                                    <optgroup th:each="d : ${dog}"
-                                                    >
-                                                    <option
-
-                                                                th:text="${d.name}"
-                                                                th:value="${d.name}"
-
-                                                        ></option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="submit" value="submit" class="btn btn-primary">
-                                                <div class="submitting"></div>
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="description">Description</label>
+                                            <input th:field="*{description}"
+                                                   th:classappend="${#fields.hasErrors('description')}? 'is-invalid'"
+                                                   type="text" class="form-control" name="price" id="description"
+                                                   placeholder="description...">
+                                            <small th:if="${#fields.hasErrors('description')}" class="text-danger"
+                                                   th:errors="*{description}"></small>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="price">Price</label>
+                                            <input th:field="*{price}"
+                                                   th:classappend="${#fields.hasErrors('price')}? 'is-invalid'"
+                                                   type="text" class="form-control" name="price" id="price"
+                                                   placeholder="price...">
+                                            <small th:if="${#fields.hasErrors('price')}" class="text-danger"
+                                                   th:errors="*{price}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="contact">Contact</label>
+                                            <input th:field="*{contact}"
+                                                   th:classappend="${#fields.hasErrors('contact')}? 'is-invalid'"
+                                                   type="text" class="form-control" name="contact" id="contact"
+                                                   placeholder="contact...">
+                                            <small th:if="${#fields.hasErrors('contact')}" class="text-danger"
+                                                   th:errors="*{contact}"></small>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="submit" class="btn btn-primary">
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+
+                            </form>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
 </section>
-
-
-
-
 
 
 <footer th:replace="/fragments/fragment :: footer"></footer>
 
-<div th:replace="/fragments/fragment :: script" ></div>
+<div th:replace="/fragments/fragment :: script"></div>
 </body>
 </html>

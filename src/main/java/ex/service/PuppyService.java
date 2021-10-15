@@ -3,6 +3,7 @@ package ex.service;
 import ex.model.entity.Puppy;
 import ex.model.entity.Dog;
 import ex.model.service.PuppyServiceModel;
+import ex.model.service.UserServiceModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,4 +21,8 @@ public interface PuppyService {
     Long countOfPuppies();
 
     void updatePuppy(PuppyServiceModel puppyServiceModel);
+
+    UserServiceModel findUserWhichAddPuppy(PuppyServiceModel puppyServiceModel);
+
+    void deletePuppy(Long id);
 }

@@ -5,6 +5,7 @@ import ex.model.binding.EditPuppyBindingModel;
 import ex.model.entity.Puppy;
 import ex.model.entity.Dog;
 import ex.model.service.PuppyServiceModel;
+import ex.model.service.UserServiceModel;
 import ex.model.view.PuppyViewModel;
 import ex.repository.DogRepository;
 import ex.service.PuppyService;
@@ -31,7 +32,6 @@ public class PuppyController {
     private final DogRepository dogRepository;
 
 
-
     public PuppyController(PuppyService puppyService, ModelMapper modelMapper, DogRepository dogRepository) {
         this.puppyService = puppyService;
         this.modelMapper = modelMapper;
@@ -47,14 +47,14 @@ public class PuppyController {
 
         }
 
-        List<Dog> dogs= puppyService.findParent(principal.getName());
-        model.addAttribute("dog",dogs);
+        List<Dog> dogs = puppyService.findParent(principal.getName());
+        model.addAttribute("dog", dogs);
         return "puppies/add-puppy";
     }
 
     @PostMapping("/add")
     public String addAddConfirm(@Valid @ModelAttribute AddPuppyBindingModel addPuppyBindingModel,
-                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addPuppyBindingModel", addPuppyBindingModel);
@@ -66,68 +66,89 @@ public class PuppyController {
 
             puppyService.addAd(modelMapper.map(addPuppyBindingModel, PuppyServiceModel.class));
 
-            return  "redirect:/home";
+            return "redirect:/home";
 
 
         }
     }
+
     @GetMapping("/all")
-    public ModelAndView allAds(ModelAndView modelAndView){
+    public ModelAndView allAds(ModelAndView modelAndView) {
         List<Puppy> puppies = puppyService.showAllPuppies();
-       modelAndView.addObject("allPuppies", puppies
-               .stream()
-               .map(ad -> modelMapper.map(ad, PuppyViewModel.class))
-               .collect(Collectors.toList()));
-       modelAndView.setViewName("puppies/all-puppies");
-       return modelAndView;
+        modelAndView.addObject("allPuppies", puppies
+                .stream()
+                .map(ad -> modelMapper.map(ad, PuppyViewModel.class))
+                .collect(Collectors.toList()));
+        modelAndView.setViewName("puppies/all-puppies");
+        return modelAndView;
 
     }
-    @GetMapping("/details")
-    public ModelAndView viewDetails(@RequestParam("id") Long id, ModelAndView modelAndView){
-        System.out.println();
 
-        Puppy puppy = modelMapper.map(puppyService.findById(id),Puppy.class);
+    @GetMapping("/details")
+    public ModelAndView viewDetails(@RequestParam("id") Long id, ModelAndView modelAndView, Principal principal) {
+
         PuppyServiceModel puppyServiceModel = puppyService.findById(id);
-       String name = puppyServiceModel.getDog();
-       Dog dog = dogRepository.findByName(name);
+        PuppyViewModel puppyViewModel = modelMapper.map(puppyServiceModel, PuppyViewModel.class);
+        EditPuppyBindingModel editPuppyBindingModel = modelMapper.map(puppyViewModel, EditPuppyBindingModel.class);
+        UserServiceModel userServiceModel = puppyService.findUserWhichAddPuppy(puppyServiceModel);
+
+        modelAndView.addObject("newPuppy", editPuppyBindingModel);
+        modelAndView.addObject("isSameUser", false);
+
+
+        if (principal.getName().equals(userServiceModel.getUsername())) {
+            modelAndView.addObject("isSameUser", true);
+        }
+
+        Puppy puppy = modelMapper.map(puppyService.findById(id), Puppy.class);
+        PuppyServiceModel puppyServiceModel2 = puppyService.findById(id);
+        String name = puppyServiceModel2.getDog();
+        Dog dog = dogRepository.findByName(name);
         puppy.setDog(dogRepository.findByName(name));
-        modelAndView.addObject("puppy",modelMapper.map(puppy, PuppyViewModel.class));
+        modelAndView.addObject("puppy", modelMapper.map(puppy, PuppyViewModel.class));
         modelAndView.setViewName("puppies/puppy-details");
         return modelAndView;
     }
+    @DeleteMapping("/delete/{id}")
+    public String deletePuppy(@PathVariable Long id) {
+        System.out.println();
+        puppyService.deletePuppy(id);
+
+        return "redirect:/puppies/all";
+    }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
+    public String edit(@PathVariable Long id, Model model) {
 
-        PuppyViewModel puppyViewModel = modelMapper.map(puppyService.findById(id),PuppyViewModel.class);
-        EditPuppyBindingModel editPuppyBindingModel = modelMapper.map(puppyViewModel,EditPuppyBindingModel.class);
+        EditPuppyBindingModel editPuppyBindingModel = modelMapper.map(puppyService.findById(id),EditPuppyBindingModel.class);
+        model.addAttribute("newPuppy", editPuppyBindingModel);
 
-        model.addAttribute("newPuppy",editPuppyBindingModel);
-
-        return "update-puppy";
+        return "puppies/update-puppy";
     }
 
     @PatchMapping("/edit/{id}")
     public String edit(@PathVariable Long id,
                        @Valid EditPuppyBindingModel editPuppyBindingModel,
                        BindingResult bindingResult,
-                       RedirectAttributes redirectAttributes){
+                       RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("editPuppyBindingModel",editPuppyBindingModel);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("editPuppyBindingModel", editPuppyBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerModel", bindingResult);
-       return "redirect:/edit/"+id;
+            return "redirect:/edit/" + id;
         }
 
-        PuppyServiceModel puppyServiceModel = modelMapper.map(editPuppyBindingModel,PuppyServiceModel.class);
+        PuppyServiceModel puppyServiceModel = modelMapper.map(editPuppyBindingModel, PuppyServiceModel.class);
         puppyServiceModel.setId(id);
 
         puppyService.updatePuppy(puppyServiceModel);
 
-        return "redirect:/edit"+id;
+        return "redirect:/puppies/all";
 
 
     }
+
+
 
 
 }

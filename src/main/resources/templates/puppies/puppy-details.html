@@ -20,8 +20,14 @@
                         <h3 class="heading" th:text="'Price: ' + ${puppy.price}"><a ></a></h3>
                         <h3 class="heading" th:text="'Contact: ' + ${puppy.contact}"><a ></a></h3>
                         <a th:text="'Parent '+ *{dog.name}"  th:href="@{/dogs/details/(id=${puppy.dog.id})}" type="button" class="link">View Parent</a>
-                        <a th:text="Edid"  th:href="@{/puppies/edit/(id=${puppy.id})}" type="button" class="link">View Parent</a>
-
+                       <div>
+                        <a th:if="${isSameUser}" th:text="Edid"  th:href="@{/puppies/edit/{id}(id=*{id})}" type="button" class="link">View Parent</a>
+                    </div>
+                        <div>
+                            <form th:action="@{/puppies/delete/{id}(id=*{id})}" th:method="delete">
+                                <input type="submit"  class="btn-link" value="Delete"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

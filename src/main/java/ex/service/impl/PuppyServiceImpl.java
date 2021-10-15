@@ -3,7 +3,9 @@ package ex.service.impl;
 import ex.model.entity.Puppy;
 import ex.model.entity.Dog;
 import ex.model.entity.UserEntity;
+import ex.model.service.DogServiceModel;
 import ex.model.service.PuppyServiceModel;
+import ex.model.service.UserServiceModel;
 import ex.repository.PuppyRepository;
 import ex.repository.DogRepository;
 import ex.repository.UserRepository;
@@ -113,7 +115,19 @@ if(dogs.isEmpty()){
 
     }
 
+    @Override
+    public UserServiceModel findUserWhichAddPuppy(PuppyServiceModel puppyServiceModel) {
 
+        DogServiceModel dogServiceModel =modelMapper.map(dogRepository.findByName(puppyServiceModel.getDog()),DogServiceModel.class);
+        UserServiceModel userServiceModel = modelMapper.map(userRepository.findByUserId(dogServiceModel.getUserEntity().getId()),UserServiceModel.class);
+
+        return userServiceModel;
+    }
+
+    @Override
+    public void deletePuppy(Long id) {
+        puppyRepository.deleteById(id);
+    }
 
 
 }
