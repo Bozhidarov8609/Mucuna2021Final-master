@@ -9,6 +9,7 @@ import ex.repository.DogRepository;
 import ex.repository.UserRepository;
 import ex.service.PuppyService;
 import ex.service.CloudinaryService;
+import ex.web.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,6 +98,22 @@ if(dogs.isEmpty()){
 
         return puppyRepository.count();
     }
+
+    @Override
+    public void updatePuppy(PuppyServiceModel puppyServiceModel) {
+
+        Puppy puppy = puppyRepository.findById(puppyServiceModel.getId()).orElseThrow(() ->
+                new ObjectNotFoundException("Offer with id " + puppyServiceModel.getId() + " not found!"));
+
+    puppy.setDescription(puppyServiceModel.getDescription());
+    puppy.setPrice(puppyServiceModel.getPrice());
+    puppy.setContact(puppyServiceModel.getContact());
+
+    puppyRepository.save(puppy);
+
+    }
+
+
 
 
 }

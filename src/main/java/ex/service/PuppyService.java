@@ -18,4 +18,6 @@ public interface PuppyService {
 
 
     Long countOfPuppies();
+
+    void updatePuppy(PuppyServiceModel puppyServiceModel);
 }

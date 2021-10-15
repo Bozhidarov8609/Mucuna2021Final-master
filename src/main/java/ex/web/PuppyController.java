@@ -1,6 +1,7 @@
 package ex.web;
 
 import ex.model.binding.AddPuppyBindingModel;
+import ex.model.binding.EditPuppyBindingModel;
 import ex.model.entity.Puppy;
 import ex.model.entity.Dog;
 import ex.model.service.PuppyServiceModel;
@@ -93,6 +94,39 @@ public class PuppyController {
         modelAndView.addObject("puppy",modelMapper.map(puppy, PuppyViewModel.class));
         modelAndView.setViewName("puppies/puppy-details");
         return modelAndView;
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model){
+
+        PuppyViewModel puppyViewModel = modelMapper.map(puppyService.findById(id),PuppyViewModel.class);
+        EditPuppyBindingModel editPuppyBindingModel = modelMapper.map(puppyViewModel,EditPuppyBindingModel.class);
+
+        model.addAttribute("newPuppy",editPuppyBindingModel);
+
+        return "update-puppy";
+    }
+
+    @PatchMapping("/edit/{id}")
+    public String edit(@PathVariable Long id,
+                       @Valid EditPuppyBindingModel editPuppyBindingModel,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes){
+
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("editPuppyBindingModel",editPuppyBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerModel", bindingResult);
+       return "redirect:/edit/"+id;
+        }
+
+        PuppyServiceModel puppyServiceModel = modelMapper.map(editPuppyBindingModel,PuppyServiceModel.class);
+        puppyServiceModel.setId(id);
+
+        puppyService.updatePuppy(puppyServiceModel);
+
+        return "redirect:/edit"+id;
+
+
     }
 
 

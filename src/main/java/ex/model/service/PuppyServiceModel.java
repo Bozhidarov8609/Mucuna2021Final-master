@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public class PuppyServiceModel extends BaseEntityServiceModel{
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;
@@ -80,6 +81,17 @@ public class PuppyServiceModel extends BaseEntityServiceModel{
 
     public PuppyServiceModel setImage(MultipartFile image) {
         this.image = image;
+        return this;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public PuppyServiceModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }

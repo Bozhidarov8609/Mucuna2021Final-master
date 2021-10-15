@@ -37,4 +37,7 @@
 
 # INSERT mucuna072021.events(id, name, picture, place, price, user_id)
 # VALUES (2,'MedicalExamination','http://res.cloudinary.com/bozhidar/image/upload/v1634226392/if63ep4uieidxnqitgcq.jpg','Varna,ul.Drin 59',0,1)
+#
+INSERT mucuna072021.puppies(id, contact, description, name, picture, price, dog_id)
+VALUES(1,'0883300389','proven origin','popy','https://res.cloudinary.com/bozhidar/image/upload/v1620715759/u8hjpcq4o8lc3trg7s4u.jpg','300',1)
 

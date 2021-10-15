@@ -1,0 +1,52 @@
+server:
+    port: 8000
+spring:
+    datasource:
+        data: classpath:Data.sql
+        driverClassName: com.mysql.cj.jdbc.Driver
+        initialization-mode: always
+        password: Globul11
+        url: jdbc:mysql://localhost:3306/Mucuna072021?createDatabaseIfNotExist=true&amp
+        username: root
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        defer-datasource-initialization: true
+        hibernate:
+            ddl-auto: update
+        open-in-view: false
+        properties:
+            hibernate:
+                format_sql: true
+    mail:
+        host: smtp.gmail.com
+        password: ${EMAIL_PASS}
+        port: 587
+        properties:
+            mail:
+                protocol: smtp
+                smtp:
+                    auth: true
+                    connectiontimeout: 5000
+                    ssl:
+                        trust: smtp.gmail.com
+                    starttls:
+                        enable: true
+                        required: true
+                    timeout: 5000
+                    writetimeout: 5000
+        username: mucunateam@gmail.com
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
+            init: 'null'
+            mode: always
+            sql: 'null'
+    security:
+        oauth2:
+            client:
+                registration:
+                    facebook:
+                        client-id: 1170158180072904
+                        client-secret: 4715ae1b57771b5faee667324d6fe6a3
+                        scope: public_profile,email
