@@ -18,6 +18,9 @@
                         <div class="col-md-7">
                             <div class="contact-wrap w-100 p-md-5 p-4">
                                 <h3 class="mb-4">Login</h3>
+
+                                <a th:href="@{/oauth2/authorization/facebook}">Login with Facebook</a>
+                                <h3 class="mb-4">or</h3>
                                 <form th:method="POST" th:action="@{/users/login}" id="contactForm" name="contactForm" class="contactForm" >
                                     <small th:if="${bad_credentials}"  class="text-danger">Incorrect username or password!</small>
                                     <div class="row">

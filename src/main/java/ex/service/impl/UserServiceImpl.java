@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService {
     @PostConstruct
     public void init() {
 
-        if (userRepository.count()==0) {
+        if (userRepository.count() == 0) {
 
-            if(roleRepository.count()==0){
+            if (roleRepository.count() == 0) {
                 Role admin = new Role(RoleCategoryName.ADMIN);
                 Role user = new Role(RoleCategoryName.USER);
                 Role client = new Role(RoleCategoryName.CLIENT);
@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService {
                 this.roleRepository.saveAndFlush(user);
                 this.roleRepository.saveAndFlush(client);
             }
-
 
 
             UserEntity admin = new UserEntity();
@@ -90,60 +89,59 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel registerUser(UserServiceModel userServiceModel) {
 
 
-            UserEntity userEntity = this.modelMapper.map(userServiceModel, UserEntity.class);
+        UserEntity userEntity = this.modelMapper.map(userServiceModel, UserEntity.class);
 
         userEntity.setPassword(encoder.encode(userServiceModel.getPassword()));
         Role role = roleRepository.findById(2);
         userEntity.setRole(role);
-        userEntity=userRepository.save(userEntity);
+        userEntity = userRepository.save(userEntity);
 
-            UserDetails principal = dbUserService.loadUserByUsername(userEntity.getUsername());
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    principal,
-                    userEntity.getPassword(),
-                    principal.getAuthorities()
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetails principal = dbUserService.loadUserByUsername(userEntity.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                principal,
+                userEntity.getPassword(),
+                principal.getAuthorities()
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
-return modelMapper.map(userEntity,UserServiceModel.class);
+        return modelMapper.map(userEntity, UserServiceModel.class);
     }
 
     @Override
     public UserServiceModel findByUsernameAndEmail(String username, String email) {
-       UserEntity userEntity = userRepository.findByUsernameAndEmail(username,email).orElse(null);
-       if (userEntity !=null){
+        UserEntity userEntity = userRepository.findByUsernameAndEmail(username, email).orElse(null);
+        if (userEntity != null) {
 
-         return modelMapper.map(userEntity,UserServiceModel.class);
-       }else
-           return null;
+            return modelMapper.map(userEntity, UserServiceModel.class);
+        } else
+            return null;
 
     }
 
     @Override
     public UserServiceModel findUserByUsernameAndPassword(String username, String password) {
 
-        UserEntity userEntity = this.userRepository.findByUsernameAndPassword(username,password).orElse(null);
+        UserEntity userEntity = this.userRepository.findByUsernameAndPassword(username, password).orElse(null);
 
-        if (userEntity !=null){
+        if (userEntity != null) {
 
-            return modelMapper.map(userEntity,UserServiceModel.class);
-        }else
+            return modelMapper.map(userEntity, UserServiceModel.class);
+        } else
             return null;
     }
 
     @Override
-    public UserEntity findByName(String name)
-    {
-      return userRepository.findByUsername(name).orElse(null);
+    public UserEntity findByName(String name) {
+        return userRepository.findByUsername(name).orElse(null);
     }
 
     @Override
     public void setDealer(UserEntity userEntity, DealerServiceModel dealerServiceModel1) {
 
-        Dealer dealer =modelMapper.map(dealerServiceModel1,Dealer.class);
-userEntity.setDealer(dealer);
-userRepository.saveAndFlush(userEntity);
+        Dealer dealer = modelMapper.map(dealerServiceModel1, Dealer.class);
+        userEntity.setDealer(dealer);
+        userRepository.saveAndFlush(userEntity);
 
     }
 
@@ -152,21 +150,21 @@ userRepository.saveAndFlush(userEntity);
         System.out.println();
         List<UserEntity> userEntities = userRepository.findAllWithoutAdminRole();
         List<UserServiceModel> userServiceModels = new LinkedList<>();
-        userEntities.forEach(u-> userServiceModels.add(modelMapper.map(u,UserServiceModel.class)));
+        userEntities.forEach(u -> userServiceModels.add(modelMapper.map(u, UserServiceModel.class)));
         return userServiceModels;
     }
 
     @Override
     public void updateToAdmin(Long id) {
-       UserEntity userEntity = userRepository.findByUserId(id);
-      userEntity.setRole(roleRepository.findById(1));
-      userRepository.saveAndFlush(userEntity);
+        UserEntity userEntity = userRepository.findByUserId(id);
+        userEntity.setRole(roleRepository.findById(1));
+        userRepository.saveAndFlush(userEntity);
 
     }
 
     @Override
     public void registerUserAfterOAuthLoginSuccess(String email, String name, AuthenticationProvider authProvider) {
-        System.out.println();
+
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(name);
         userEntity.setPassword(encoder.encode("12345678"));

@@ -1,5 +1,6 @@
 package ex.config;
 
+import ex.model.entity.enums.RoleCategoryName;
 import ex.service.impl.CustomOauth2UserService;
 import ex.service.impl.DBUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**", "/images/**","/fonts/**","/scss/**").permitAll()
                 .antMatchers("/", "/users/register","/users/about", "/users/login","/oauth2/authorization/facebook").permitAll()
+                .antMatchers("/statistic").hasRole(RoleCategoryName.ADMIN.name())
                 .antMatchers("/**").authenticated()
                 .and().
                 formLogin().
@@ -54,8 +56,8 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/login")
                 .userInfoEndpoint()
-                .userService(oAuth2UserService)
-                .and().successHandler(oAuth2LoginSuccessHandler).
+                .userService(oAuth2UserService).and()
+                .successHandler(oAuth2LoginSuccessHandler).
                 defaultSuccessUrl("/home").
                  and().
                 logout().

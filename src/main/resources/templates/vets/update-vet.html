@@ -46,7 +46,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="label" for="address">Address</label>
-                                                <input th:field="*{address}" th:classappend="${#fields.hasErrors('address')}? 'is-invalid'" type="text" class="form-control" name="address" id="address" placeholder="address...">
+                                                <input th:field="*{address}" th:classappend="${#fields.hasErrors('address')}? 'is-invalid'"  type="text" class="form-control" name="address" id="address" placeholder="address...">
                                                 <small th:if="${#fields.hasErrors('address')}" class="text-danger"
                                                        th:errors="*{address}"></small>
                                             </div>

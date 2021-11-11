@@ -25,9 +25,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
        String email = oAuth2User.getEmail();
        String name = oAuth2User.getName();
-       String password = oAuth2User.getEmail();
 
 
+        System.out.println(name+"!!!!!!");
        userService.registerUserAfterOAuthLoginSuccess(email,name, AuthenticationProvider.FACEBOOK);
 
 

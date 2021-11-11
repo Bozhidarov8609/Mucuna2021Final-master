@@ -16,20 +16,25 @@ public class CustomOAuth2User implements OAuth2User
 
     @Override
     public Map<String, Object> getAttributes() {
+
         return oAuth2User.getAttributes();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         return oAuth2User.getAuthorities();
     }
 
     @Override
     public String getName() {
+
         return oAuth2User.getAttribute("name");
     }
     public String getEmail() {
-        return oAuth2User.<String>getAttribute("email");
+
+        return oAuth2User.getAttribute("email");
     }
+
 
 }

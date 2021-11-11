@@ -33,83 +33,80 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public String register(Model model){
+    public String register(Model model) {
 
-        if (!model.containsAttribute("userRegisterBindingModel")){
-            model.addAttribute("userRegisterBindingModel",new UserRegisterBindingModel());
-            model.addAttribute("notSame",false);
-            model.addAttribute("userExist",false);
+        if (!model.containsAttribute("userRegisterBindingModel")) {
+            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
+            model.addAttribute("notSame", false);
+            model.addAttribute("userExist", false);
         }
         return "register";
     }
 
     @PostMapping("/register")
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes){
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()|| !userRegisterBindingModel.getConfirmPassword().equals(userRegisterBindingModel.getPassword())){
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel",userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("notSame",true);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",bindingResult);
+        if (bindingResult.hasErrors() || !userRegisterBindingModel.getConfirmPassword().equals(userRegisterBindingModel.getPassword())) {
+            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute("notSame", true);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:register";
 
-        }else {
-            UserServiceModel userServiceModel = userService.findByUsernameAndEmail(userRegisterBindingModel.getUsername(),userRegisterBindingModel.getEmail());
-if (userServiceModel!=null){
-    redirectAttributes.addFlashAttribute("userRegisterBindingModel",userRegisterBindingModel);
-    redirectAttributes.addFlashAttribute("userExist",true);
-    redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",bindingResult);
-    return "redirect:register";
-}
+        } else {
+            UserServiceModel userServiceModel = userService.findByUsernameAndEmail(userRegisterBindingModel.getUsername(), userRegisterBindingModel.getEmail());
+            if (userServiceModel != null) {
+                redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+                redirectAttributes.addFlashAttribute("userExist", true);
+                redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
+                return "redirect:register";
+            }
 
-          this.userService.registerUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
+            this.userService.registerUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
 
             return "redirect:/home";
         }
     }
+
     @GetMapping("/client")
-    public String register2(){
+    public String register2() {
         return "register-client";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
 
-
-
     @PostMapping("/login-error")
     public String failedLogin(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                                            String username, RedirectAttributes redirectAttributes) {
+                                      String username, RedirectAttributes redirectAttributes) {
 
 
         redirectAttributes.addFlashAttribute("bad_credentials", true);
         redirectAttributes.addFlashAttribute("username", username);
 
 
-
-
-        return   "redirect:/users/login";
+        return "redirect:/users/login";
 
     }
-    @GetMapping ("/updateRole")
-    public ModelAndView updateUserRole(ModelAndView modelAndView){
+
+    @GetMapping("/updateRole")
+    public ModelAndView updateUserRole(ModelAndView modelAndView) {
 
         modelAndView.addObject("AllUsersWithRoleUserOrClient", userService.findAllUsersWithoutAdminRole());
         modelAndView.setViewName("update-role");
         return modelAndView;
 
     }
-    @GetMapping("update/{id}")
-    public String updateRole(@PathVariable("id") Long id){
 
-       userService.updateToAdmin(id);
+    @GetMapping("update/{id}")
+    public String updateRole(@PathVariable("id") Long id) {
+
+        userService.updateToAdmin(id);
         return "redirect:/users/updateRole";
     }
-
-
 
 
 }

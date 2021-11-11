@@ -2,8 +2,10 @@ package ex.web;
 
 import ex.model.binding.UpdateVetBindingModel;
 import ex.model.binding.VetRegisterBindingModel;
+import ex.model.entity.UserEntity;
 import ex.model.service.VetServiceModel;
 import ex.model.view.VetViewModel;
+import ex.repository.UserRepository;
 import ex.repository.VetRepository;
 import ex.service.VetService;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -30,11 +33,13 @@ public class VetsController {
     private final VetService vetService;
     private final ModelMapper modelMapper;
     private final VetRepository vetRepository;
+    private final UserRepository userRepository;
 
-    public VetsController(VetService vetService, ModelMapper modelMapper, VetRepository vetRepository) {
+    public VetsController(VetService vetService, ModelMapper modelMapper, VetRepository vetRepository, UserRepository userRepository) {
         this.vetService = vetService;
         this.modelMapper = modelMapper;
         this.vetRepository = vetRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -85,11 +90,15 @@ public class VetsController {
         return modelAndView;
     }
     @GetMapping("/update")
-    public String updateVet(Model model){
+    public String updateVet(Model model, Principal principal){
 
         if(!model.containsAttribute("updateVetBindingModel")){
             model.addAttribute("updateVetBindingModel", new UpdateVetBindingModel());
         }
+        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
+
+        model.addAttribute("vet",vetRepository.findById(userEntity.get().getDealer().getId()));
+
         return "vets/update-vet";
     }
 
