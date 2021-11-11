@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/fragment :: head">
+
+</head>
+<header th:replace="/fragments/fragment :: navigation"></header>
+<body>
+
+
+ <section class="ftco-section">
+
+
+           <h1>Welcome to Stats!</h1>
+           <h3>Total requests <th:block th:text="${stats.getTotalRequest()}"></th:block></h3>
+           <h3>Anonymous requests <th:block th:text="${stats.getAnonymousRequests()}"></th:block></h3>
+           <h3>Authorized requests <th:block th:text="${stats.getAuthRequests()}"></th:block></h3>
+
+
+
+</section>
+
+<footer th:replace="/fragments/fragment :: footer"></footer>
+
+ <div th:replace="/fragments/fragment :: script" ></div>
+</body>
+
+</html>
