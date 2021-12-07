@@ -6,7 +6,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         initialization-mode: always
         password: Globul11
-        url: jdbc:mysql://localhost:3306/Mucuna072021?createDatabaseIfNotExist=true&amp
+        url: jdbc:mysql://localhost:3306/Mucuna071221?createDatabaseIfNotExist=true&amp
         username: root
     jpa:
         database-platform: org.hibernate.dialect.MySQL8Dialect

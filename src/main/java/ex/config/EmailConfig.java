@@ -11,7 +11,7 @@ import java.util.Properties;
 
 @Configuration
 public class  EmailConfig {
-@Value("${EMAIL_PASS}")
+@Value("Globul11")
     private String password ;
     @Bean
     public JavaMailSender getJavaMailSender()

@@ -20,7 +20,7 @@ private final RoleRepository roleRepository;
 
     @PostConstruct
     public void init(){
-        System.out.println();
+
 //        if(this.roleRepository.count()==0){
 //            Role admin = new Role(RoleCategoryName.ADMIN);
 //            Role user = new Role(RoleCategoryName.USER);

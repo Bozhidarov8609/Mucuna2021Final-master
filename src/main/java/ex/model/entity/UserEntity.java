@@ -23,8 +23,9 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity() {
     }
-@Column(nullable = false,unique = true)
-@Length(min = 3,max = 20,message = "Username length must be between 3 and 20 characters (inclusive 3 and 20).")
+
+    @Column(nullable = false, unique = true)
+    @Length(min = 3, max = 20, message = "Username length must be between 3 and 20 characters (inclusive 3 and 20).")
     public String getUsername() {
         return username;
     }
@@ -33,8 +34,9 @@ public class UserEntity extends BaseEntity {
         this.username = username;
         return this;
     }
-@Column
-@Length(min = 8,message = "Password length must be min 8 characters .")
+
+    @Column
+    @Length(min = 8, message = "Password length must be min 8 characters .")
     public String getPassword() {
         return password;
     }
@@ -43,8 +45,9 @@ public class UserEntity extends BaseEntity {
         this.password = password;
         return this;
     }
-@Column(nullable = false)
-@Email()
+
+    @Column(nullable = false)
+    @Email()
     public String getEmail() {
         return email;
     }
@@ -53,8 +56,9 @@ public class UserEntity extends BaseEntity {
         this.email = email;
         return this;
     }
+
     @Column(nullable = false)
-    @Size(min = 3,message = "Town length must be min 3 characters")
+    @Size(min = 3, message = "Town length must be min 3 characters")
     public String getTown() {
         return town;
     }
@@ -63,7 +67,6 @@ public class UserEntity extends BaseEntity {
         this.town = town;
         return this;
     }
-
 
 
     @ManyToOne
@@ -75,8 +78,9 @@ public class UserEntity extends BaseEntity {
         this.role = role;
         return this;
     }
-@OneToOne
-@JoinColumn(name = "dealer_id",referencedColumnName = "id")
+
+    @OneToOne
+    @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     public Dealer getDealer() {
         return dealer;
     }
@@ -85,7 +89,8 @@ public class UserEntity extends BaseEntity {
         this.dealer = dealer;
         return this;
     }
-@OneToMany(mappedBy = "userEntity",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Dog> getDog() {
         return dog;
     }
@@ -94,8 +99,9 @@ public class UserEntity extends BaseEntity {
         this.dog = dog;
         return this;
     }
-@Column(name = "auth_provider")
-@Enumerated(EnumType.STRING)
+
+    @Column(name = "auth_provider")
+    @Enumerated(EnumType.STRING)
     public AuthenticationProvider getAuthProvider() {
         return authProvider;
     }

@@ -17,7 +17,7 @@ public class ApplicationCloudConfiguration {
     private String cloudName;
     @Value("987196883221311")
     private String apiKey;
-    @Value("${CLOUDINARY_SECRET}")
+    @Value("mlO8Btv5kOF-IwTQD0iub-QxcL0")
     private String apiSecret;
 
     @Bean

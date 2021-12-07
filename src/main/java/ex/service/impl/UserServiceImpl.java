@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserServiceModel> findAllUsersWithoutAdminRole() {
-        System.out.println();
+
         List<UserEntity> userEntities = userRepository.findAllWithoutAdminRole();
         List<UserServiceModel> userServiceModels = new LinkedList<>();
         userEntities.forEach(u -> userServiceModels.add(modelMapper.map(u, UserServiceModel.class)));
